@@ -19,6 +19,26 @@ return new class extends Migration
             $table->boolean('gestor')->nullable();
             $table->boolean('relatorios')->nullable();
 
+            $table->boolean('agressores')->nullable();
+            $table->boolean('agressores_cad')->nullable();
+            $table->boolean('agressores_edt')->nullable();
+            $table->boolean('agressores_del')->nullable();
+
+            $table->boolean('denuncias')->nullable();
+            $table->boolean('denuncias_cad')->nullable();
+            $table->boolean('denuncias_edt')->nullable();
+            $table->boolean('denuncias_del')->nullable();
+
+            $table->boolean('emergencias')->nullable();
+            $table->boolean('emergencias_cad')->nullable();
+            $table->boolean('emergencias_edt')->nullable();
+            $table->boolean('emergencias_del')->nullable();
+
+            $table->boolean('usuarios')->nullable();
+            $table->boolean('usuarios_cad')->nullable();
+            $table->boolean('usuarios_edt')->nullable();
+            $table->boolean('usuarios_del')->nullable();
+
             $table->foreignId('created_by')->nullable()->constrained('users')->onUpdate('cascade')->onDelete('set null');
             $table->foreignId('updated_by')->nullable()->constrained('users')->onUpdate('cascade')->onDelete('set null');
             $table->timestamps();
@@ -31,6 +51,8 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::disableForeignKeyConstraints();
         Schema::dropIfExists('perfis');
+        Schema::enableForeignKeyConstraints();
     }
 };

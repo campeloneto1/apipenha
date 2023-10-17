@@ -15,6 +15,7 @@ return new class extends Migration
         Schema::create('paises', function (Blueprint $table) {
             $table->id();
             $table->string('nome', 100)->unique();
+            $table->string('abreviatura', 10)->unique();
 
             $table->foreignId('created_by')->nullable()->constrained('users')->onUpdate('cascade')->onDelete('set null');
             $table->foreignId('updated_by')->nullable()->constrained('users')->onUpdate('cascade')->onDelete('set null');
@@ -28,6 +29,8 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::disableForeignKeyConstraints();
         Schema::dropIfExists('paises');
+        Schema::enableForeignKeyConstraints();
     }
 };

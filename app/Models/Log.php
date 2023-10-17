@@ -5,16 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Cidade extends Model
+class Log extends Model
 {
     use HasFactory;
 
-    /**
+     /**
      * The table associated with the model.
      *
      * @var string
      */
-    protected $table = 'cidades';
+    protected $table = 'logs';
 
     /**
      * The attributes that are mass assignable.
@@ -22,8 +22,13 @@ class Cidade extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'nome',
-        'estado_id'
+        'user_id',
+        'mensagem',
+        'table',
+        'fk',
+        'action',
+        'object',
+        'object_old'
     ];
 
     /**
@@ -39,11 +44,11 @@ class Cidade extends Model
      *
      * @var array
      */
-    protected $with = ['estado'];
+    protected $with = ['user'];
 
     
-     public function estado()
+     public function user()
      {
-         return $this->belongsTo(Estado::class);
+         return $this->belongsTo(User::class);
      }
 }

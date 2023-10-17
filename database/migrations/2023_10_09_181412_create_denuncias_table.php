@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('agressor', 100)->nullable();
             $table->foreignId('agressor_id')->nullable()->constrained('agressores')->onUpdate('cascade')->onDelete('set null');
 
+            $table->string('cep', 7)->nullable();
             $table->string('rua', 50)->nullable();
             $table->string('numero', 20)->nullable();
             $table->foreignId('bairro_id')->nullable()->constrained('bairros')->onUpdate('cascade')->onDelete('set null');
@@ -40,6 +41,8 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::disableForeignKeyConstraints();
         Schema::dropIfExists('denuncias');
+        Schema::enableForeignKeyConstraints();
     }
 };

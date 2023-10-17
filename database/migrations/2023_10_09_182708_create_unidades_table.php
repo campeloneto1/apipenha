@@ -17,6 +17,8 @@ return new class extends Migration
             $table->foreignId('orgao_id')->nullable()->constrained('orgaos')->onUpdate('cascade')->onDelete('set null');
             $table->string('nome', 100)->unique();
             $table->string('abreviatura', 20)->unique();
+
+            $table->string('cep', 7)->nullable();
             $table->string('rua', 50)->nullable();
             $table->string('numero', 20)->nullable();
             $table->foreignId('bairro_id')->nullable()->constrained('bairros')->onUpdate('cascade')->onDelete('set null');
@@ -33,6 +35,7 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::disableForeignKeyConstraints();
         Schema::dropIfExists('unidades');
-    }
+        Schema::enableForeignKeyConstraints();    }
 };

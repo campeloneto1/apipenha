@@ -8,4 +8,47 @@ use Illuminate\Database\Eloquent\Model;
 class Agressor extends Model
 {
     use HasFactory;
+
+    /**
+     * The table associated with the model.
+     *
+     * @var string
+     */
+    protected $table = 'agressores';
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
+    protected $fillable = [
+        'nome',
+        'cpf',
+        'foto',
+        'cep',
+        'rua',
+        'numero',
+        'bairro_id'
+    ];
+
+    /**
+     * The primary key associated with the table.
+     *
+     * @var string
+     */
+    protected $primaryKey = 'id';
+
+
+    /**
+     * The relationships that should always be loaded.
+     *
+     * @var array
+     */
+    protected $with = ['bairro'];
+
+    
+     public function bairro()
+     {
+         return $this->belongsTo(Bairro::class);
+     }
 }

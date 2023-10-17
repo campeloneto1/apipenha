@@ -12,17 +12,16 @@ return new class extends Migration
     public function up(): void
     {
         Schema::disableForeignKeyConstraints();
-        Schema::create('emergencias', function (Blueprint $table) {
+        Schema::create('logs', function (Blueprint $table) {
             $table->id();
-
             $table->foreignId('user_id')->nullable()->constrained('users')->onUpdate('cascade')->onDelete('set null');
-            $table->dateTime('data_hora', $precision = 0);
-            $table->string('lat', 50);
-            $table->string('lng', 50);
+            $table->string('mensagem', 50);
+            $table->string('table', 50);
+            $table->integer('fk')->nullable();
+            $table->integer('action'); 
+            $table->text('object')->nullable();    
+            $table->text('object_old')->nullable();  
 
-
-            $table->foreignId('created_by')->nullable()->constrained('users')->onUpdate('cascade')->onDelete('set null');
-            $table->foreignId('updated_by')->nullable()->constrained('users')->onUpdate('cascade')->onDelete('set null');
             $table->timestamps();
         });
         Schema::enableForeignKeyConstraints();
@@ -34,7 +33,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::disableForeignKeyConstraints();
-        Schema::dropIfExists('emergencias');
+        Schema::dropIfExists('logs');
         Schema::enableForeignKeyConstraints();
     }
 };
